@@ -9,7 +9,7 @@ Often numbers, but works for anything that can be sorted
 
 */
 
-var numberList = [8, 2, 10, 9, 11, 7, 4, 3, 23, 5, 86, 23, 9, 1]
+var numberList = [8, 2, 10, 9, 11, 7, 4, 3, 23, 5, 86, 23, 9, 1, 86]
 
 //Bubble Sort
 func bubbleSort(numberList: [Int]) -> [Int] {
@@ -184,93 +184,38 @@ func quickSort(a: [Int]) -> [Int] {
 quickSort(a: numberList)
 
 //Quicksort in place
-//Above creates and destroys a lot of memory, so lets do it the annoying way
+//Above creates and destroys a lot of memory, so this is the more efficent 
 
 func quickSortInPlace(numbers: inout [Int], indexLow: Int, indexHigh: Int) {
     var i = indexLow
     var j = indexHigh
-    let pivot = numbers[(indexLow + indexHigh)/2] //Middle value of array, there are smarter ways choose a pivot
-
-    //break when the left index is higher than right index
-    //when this loop breaks, all values greater than the pivot will be on the right
-    //and all the values less than the pivot will be on the left
+    let pivot = numbers[(indexLow + indexHigh)/2]
+    
     while i <= j {
-        //find an element on the left that should be on the right (higher than pivot value)
         while numbers[i] < pivot {
             i += 1
         }
         
-        //same for the right (lower than pivot value)
         while numbers[j] > pivot {
             j -= 1
         }
         
-        //if the left index (i) is still <= than the right index (j), we need to flip values
         if i <= j {
             let swap = numbers[i]
             numbers[i] = numbers[j]
             numbers[j] = swap
             
-            //move past this point because we just corrected it
             i += 1
             j -= 1
         }
     }
     
-    //At this point i and j will either be equal to each other, or j will be lower than i 
-    //So we can split the array into two halves at this point, and recursivly call ourself
-    //This will continue down until there is one number left
-    
-    //WRONG they will be left at the last swap it could do??
-    
-    //indexLow < j will only fail if there is not one number left
     if indexLow < j {
-        //origional low index to the last adjusted high index j
         quickSortInPlace(numbers: &numbers, indexLow: indexLow, indexHigh: j)
     }
     if i < indexHigh {
-        //adjusted low index i to the origional high index
         quickSortInPlace(numbers: &numbers, indexLow: i, indexHigh: indexHigh)
     }
 }
 
-
 quickSortInPlace(numbers: &numberList, indexLow: 0, indexHigh: numberList.count - 1)
-
-//http://xoax.net/comp_sci/crs/algorithms/lessons/Lesson4/
-
-var numberList2 = [8, 2, 10, 9, 11, 7, 4, 3, 23, 5, 86, 25, 9, 1, 9]
-
-func quickSortInPlace2(arr: inout [Int], start: Int, end: Int) {
-    if end - start <= 1 { return }
-    
-    let pivot = arr[start]
-    var left = start
-    var right = end
-    
-    while left <= right {
-        while arr[left] < pivot { left += 1 }
-        while arr[right] > pivot { right -= 1 }
-        if right > left {
-            swap(arr: &arr, a: left, b: right)
-            left += 1
-            right -= 1
-        }
-    }
-    
-    if start < left {
-        quickSortInPlace2(arr: &arr, start: start, end: right)
-    }
-    
-    if left < end {
-        quickSortInPlace2(arr: &arr, start: left, end: end)
-    }
-}
-
-func swap(arr: inout [Int], a: Int, b: Int) {
-    let temp = arr[a]
-    arr[a] = arr[b]
-    arr[b] = temp
-}
-
-quickSortInPlace2(arr: &numberList2, start: 0, end: numberList2.count - 1)
