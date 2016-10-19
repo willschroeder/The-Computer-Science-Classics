@@ -24,3 +24,4 @@ TODOs
 - https://github.com/raywenderlich/swift-algorithm-club/tree/master/Shunting%20Yard
 - https://github.com/raywenderlich/swift-algorithm-club/tree/master/GCD
 - Generally clean up some of the docs and add comments explaining concepts clearer. Reduce swift usage. 
+- Make a better Readme
