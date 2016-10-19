@@ -1,6 +1,5 @@
 import Foundation
 
-//https://github.com/raywenderlich/swift-algorithm-club/tree/master/Shortest%20Path%20(Unweighted)
 
 /*
 
@@ -86,6 +85,10 @@ class AdjacencyListGraph {
         
         return nil
     }
+    
+    func getConnections(_ from: Vertex) -> [Edge] {
+        return adjacencyList[from.index].edges
+    }
 }
 
 /*
@@ -169,3 +172,77 @@ graph.weightFrom(v4, to: v3)
 graph.weightFrom(v1, to: v5)
 graph.weightFrom(v2, to: v5)
 graph.weightFrom(v5, to: v2)
+
+/*
+
+ Depth First Search
+
+ Starting with a node, queue up connecting to see if they are the target node.
+ If not target node, get their connections, and add the current node to a list of previously searched nodes.
+ If target node, return the searched nodes. This isn't a direct path back, only that a connection exists and how many nodes it had to check to get there.
+ 
+ If you wanted to hold onto a path back, each node would need to remember which node it was found though. 
+ This means you will have a node multiple times on the searched queue, and should only be skipped if the index and the from index are the same. 
+ Then once you reached the target, you could walk it back. 
+ 
+*/
+
+extension AdjacencyListGraph {
+    func breadthFirstSearch(start: Vertex, target: Vertex) -> [Int] {
+        var queue = [Vertex]()
+        queue.append(start)
+        
+        var exploredIndexes = [Int]()
+        
+        while true {
+            let current = queue.removeFirst()
+            exploredIndexes.append(current.index)
+            
+            if current.index == target.index {
+                return exploredIndexes
+            }
+            
+            let neighbors = getConnections(current)
+            for neighbor in neighbors {
+                let index = neighbor.to.index
+                if !exploredIndexes.contains(index) {
+                    queue.append(neighbor.to)
+                }
+            }
+            
+            if queue.count == 0 {
+                return []
+            }
+        }
+    }
+}
+
+let dfsGraph = AdjacencyListGraph()
+
+let nodeA = dfsGraph.createVertex(1)
+let nodeB = dfsGraph.createVertex(2)
+let nodeC = dfsGraph.createVertex(3)
+let nodeD = dfsGraph.createVertex(4)
+let nodeE = dfsGraph.createVertex(5)
+let nodeF = dfsGraph.createVertex(6)
+let nodeG = dfsGraph.createVertex(7)
+let nodeH = dfsGraph.createVertex(8)
+
+// The weight is not used in the shortest path calculation
+dfsGraph.addUndirectedEdge(nodeA, to: nodeB, weight: 1.0)
+dfsGraph.addUndirectedEdge(nodeA, to: nodeC, weight: 1.0)
+dfsGraph.addUndirectedEdge(nodeB, to: nodeD, weight: 1.0)
+dfsGraph.addUndirectedEdge(nodeB, to: nodeE, weight: 1.0)
+dfsGraph.addDirectedEdge(nodeC, to: nodeF, weight: 1.0)
+dfsGraph.addDirectedEdge(nodeC, to: nodeG, weight: 1.0)
+dfsGraph.addDirectedEdge(nodeE, to: nodeH, weight: 1.0)
+dfsGraph.addDirectedEdge(nodeE, to: nodeF, weight: 1.0)
+dfsGraph.addDirectedEdge(nodeF, to: nodeG, weight: 1.0)
+
+dfsGraph.breadthFirstSearch(start: nodeA, target: nodeG)
+
+dfsGraph.addDirectedEdge(nodeA, to: nodeG, weight: 1.0)
+
+dfsGraph.breadthFirstSearch(start: nodeA, target: nodeG)
+
+
