@@ -8,7 +8,7 @@ Many things here are largely based around the very cool Swift Algorithm Club rep
 
 TODOs
 
-- Everything in the Searching playground 
+- Everything in the Searching playground
 - https://github.com/raywenderlich/swift-algorithm-club/blob/master/Two-Sum%20Problem
 - https://github.com/raywenderlich/swift-algorithm-club/blob/master/Monty%20Hall%20Problem
 - https://github.com/raywenderlich/swift-algorithm-club/blob/master/Palindromes
@@ -23,4 +23,5 @@ TODOs
 - https://github.com/raywenderlich/swift-algorithm-club/tree/master/Combinatorics
 - https://github.com/raywenderlich/swift-algorithm-club/tree/master/Shunting%20Yard
 - https://github.com/raywenderlich/swift-algorithm-club/tree/master/GCD
-- Generally clean up some of the docs and add comments explaining concepts clearer. Reduce swift usage. 
+- Generally clean up some of the docs and add comments explaining concepts clearer. Reduce swift usage. Spelling.
+- Better Readme
