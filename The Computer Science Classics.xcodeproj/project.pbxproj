@@ -1,0 +1,92 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXFileReference section */
+		ED7952121DC577DF0031C825 /* BigO.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = BigO.playground; sourceTree = "<group>"; };
+		ED7952131DC577DF0031C825 /* BST.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = BST.playground; sourceTree = "<group>"; };
+		ED7952141DC577DF0031C825 /* Graph.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Graph.playground; sourceTree = "<group>"; };
+		ED7952151DC577DF0031C825 /* HashTable.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = HashTable.playground; sourceTree = "<group>"; };
+		ED7952161DC577DF0031C825 /* Heap.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Heap.playground; sourceTree = "<group>"; };
+		ED7952171DC577DF0031C825 /* Linked List.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = "Linked List.playground"; sourceTree = "<group>"; };
+		ED7952181DC577DF0031C825 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		ED7952191DC577DF0031C825 /* Searching.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Searching.playground; sourceTree = "<group>"; };
+		ED79521A1DC577DF0031C825 /* Sorting.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Sorting.playground; sourceTree = "<group>"; };
+		ED79521B1DC577DF0031C825 /* Stack & Queue.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = "Stack & Queue.playground"; sourceTree = "<group>"; };
+		ED79521C1DC577DF0031C825 /* Trie.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Trie.playground; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		ED1C0F721DC577C500F7EB0F = {
+			isa = PBXGroup;
+			children = (
+				ED7952121DC577DF0031C825 /* BigO.playground */,
+				ED7952131DC577DF0031C825 /* BST.playground */,
+				ED7952141DC577DF0031C825 /* Graph.playground */,
+				ED7952151DC577DF0031C825 /* HashTable.playground */,
+				ED7952161DC577DF0031C825 /* Heap.playground */,
+				ED7952171DC577DF0031C825 /* Linked List.playground */,
+				ED7952181DC577DF0031C825 /* README.md */,
+				ED7952191DC577DF0031C825 /* Searching.playground */,
+				ED79521A1DC577DF0031C825 /* Sorting.playground */,
+				ED79521B1DC577DF0031C825 /* Stack & Queue.playground */,
+				ED79521C1DC577DF0031C825 /* Trie.playground */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXProject section */
+		ED1C0F731DC577C500F7EB0F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0800;
+			};
+			buildConfigurationList = ED1C0F761DC577C500F7EB0F /* Build configuration list for PBXProject "The Computer Science Classics" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = ED1C0F721DC577C500F7EB0F;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		ED1C0F771DC577C500F7EB0F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		ED1C0F781DC577C500F7EB0F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		ED1C0F761DC577C500F7EB0F /* Build configuration list for PBXProject "The Computer Science Classics" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ED1C0F771DC577C500F7EB0F /* Debug */,
+				ED1C0F781DC577C500F7EB0F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = ED1C0F731DC577C500F7EB0F /* Project object */;
+}
