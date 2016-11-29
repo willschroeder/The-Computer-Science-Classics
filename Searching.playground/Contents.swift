@@ -201,15 +201,52 @@ findMinMax(array: [ 8, 3, 9, 4, 6 ])
  
  k-th Largest Element
  
- https://github.com/raywenderlich/swift-algorithm-club/tree/master/Kth%20Largest%20Element
+ In an array of [2,3,1,4], the 2nd largest element would be 3
+ The slow way is to sort the array, and then do array.count - k
+ 
+ To speed it up, we will use a devide and conquer with a method a lot like quicksort. Instead of sorting the whole array, we will just sort the part of the array we know the value must be in, ignoring the rest. 
+ So every pass will have half the number of elements to deal with.
+ 
+ This implentation isnt as efficent as it could be, im going to create new memory to keep the example simple
  
 */
+
+let test = [0,1,2,3,4,5,6,7,8]
+let min = 3
+let max = 7
+test[0...min-1]
+test[min...max]
+test[max...test.count-1]
+
+//kthLargest(array: [ 7, 92, 23, 9, -1, 0, 11, 6 ], low: 0, high: 8, k: 4)
 
 /* 
  
  Selection Sampling
  
- https://github.com/raywenderlich/swift-algorithm-club/tree/master/Selection%20Sampling
+ A pointer starts at 0 on an array, selects a random element in the array, moves it to point 0
+ Move the pointer to 1, select an element infront of the moved pointer
+ This makes a pool to the left of the pointer with the selected items
+ To the right of the pointer is the unselected pool
+ Return the left pool when you have selected enough
  
 */
+
+func randomRange(min: Int, max: Int) -> Int {
+    return min + Int(arc4random_uniform(UInt32(max - min + 1)))
+}
+
+func randomFromArray(from a: [Int], count k: Int) -> [Int] {
+    var a = a
+    for i in 0..<k {
+        let r = randomRange(min: i, max: a.count - 1)
+        //Don't swap if the random selection was the pointer
+        if i != r {
+            swap(&a[i], &a[r])
+        }
+    }
+    return Array(a[0..<k])
+}
+
+randomFromArray(from: numbers, count: 3)
 
