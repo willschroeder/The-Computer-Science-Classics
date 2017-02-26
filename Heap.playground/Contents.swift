@@ -53,6 +53,7 @@ class Heap<T: Comparable> {
     }
     
     //Heap Sorters
+    //If element is greater than parent, it needs to swap with its parent
     func shiftUp(index: Int) {
         var childIndex = index
         let child = elements[index]
@@ -76,6 +77,7 @@ class Heap<T: Comparable> {
     }
     
 
+    //If an element is smaller than its childrne, it needs to shift down
     func shiftDown(index: Int) {
         var parentIndex = index
         

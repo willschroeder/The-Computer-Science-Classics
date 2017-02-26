@@ -6,6 +6,8 @@ import Foundation
 
  Binary Search Tree
  
+ Q: What are some common balancing methods?
+ 
 */
 
 class BinarySearchTree<T: Comparable> {
@@ -85,7 +87,7 @@ extension BinarySearchTree {
             }
             else {
                 left = BinarySearchTree(value: value)
-                left?.parent = self
+                left!.parent = self
             }
         }
         //== and > go in the right branch
@@ -95,7 +97,7 @@ extension BinarySearchTree {
             }
             else {
                 right = BinarySearchTree(value: value)
-                right?.parent = self
+                right!.parent = self
             }
         }
     }
@@ -191,24 +193,26 @@ bst.breadthFirstSearch(value: 55)
 // Making a map function, done using an in order traversal
 
 extension BinarySearchTree {
-    func map(formula: (T) -> T) -> [T] {
-        var a = [T]()
-        if let left = left { a += (left.map(formula: formula)) }
-        a.append(formula(value))
-        if let right = right { a += (right.map(formula: formula)) }
+    
+    func inOrder() -> [BinarySearchTree<T>] {
+        var a = [BinarySearchTree<T>]()
+        
+        if let left = left {
+            a = a + left.inOrder()
+        }
+        
+        a.append(self)
+        
+        if let right = right {
+            a = a + right.inOrder()
+        }
+        
         return a
     }
-    
-    func toArray() -> [T] {
-        return map { $0 }
-    }
 }
 
-bst.map { (val) -> Int in
-    return val * 2
-}
-
-bst.toArray()
+let arr = bst.inOrder().map { $0.value }
+arr
 
 // Deleting Nodes
 

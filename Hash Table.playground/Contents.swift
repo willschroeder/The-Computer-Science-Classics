@@ -6,14 +6,16 @@ import Foundation
  
 */
 
+// Q: What are ways to organize [[Element]]s when they get too large?
+// A: When a bucket gets too large, add more buckets and recalculate keys to split between the new buckets
+
 struct HashTable<Key: Hashable, Value> {
     typealias Element = (key: Key, value: Value)
-    typealias Bucket = [Element]
     
-    var buckets: [Bucket]
+    var buckets: [[Element]]
     
     init(capacity: Int) {
-        buckets = [Bucket](repeating: [], count: capacity)
+        buckets = [[Element]](repeating: [], count: capacity)
     }
     
     func indexForKey(key: Key) -> Int {
@@ -32,7 +34,7 @@ struct HashTable<Key: Hashable, Value> {
         return nil
     }
     
-    mutating func updateValue(value: Value, forKey key: Key) {
+    mutating func updateOrAddValue(value: Value, forKey key: Key) {
         let index = indexForKey(key: key)
         
         //Find the key in this bucket 
@@ -69,7 +71,7 @@ struct HashTable<Key: Hashable, Value> {
         }
         set {
             if let value = newValue {
-                updateValue(value: value, forKey: key)
+                updateOrAddValue(value: value, forKey: key)
             }
             else {
                 removeValueForKey(key: key)
@@ -79,7 +81,7 @@ struct HashTable<Key: Hashable, Value> {
 }
 
 var hashTable = HashTable<String, String>(capacity: 5)
-hashTable["firstName"] = "Steve"   // insert
-let x = hashTable["firstName"]     // lookup
+hashTable["firstName"] = "Steve"   // create
+let x = hashTable["firstName"]     // read
 hashTable["firstName"] = "Tim"     // update
 hashTable["firstName"] = nil       // delete

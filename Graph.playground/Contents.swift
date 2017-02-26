@@ -5,6 +5,8 @@ import Foundation
 
  Graph
  
+ Q: When to use Adjacency, and when to use Matrix
+ 
 */
 
 
@@ -13,8 +15,7 @@ import Foundation
 //its an optimization, otherwise you would need to look up the node by comparing data to find its index every time
 struct Vertex {
     let index: Int
-    
-    var data: Int
+    var value: Int
 }
 
 //Vertexs are connected by edges, which can have a weight
@@ -22,7 +23,6 @@ struct Vertex {
 struct Edge {
     let from: Vertex
     let to: Vertex
-    
     let weight: Double?
 }
 
@@ -30,7 +30,7 @@ struct Edge {
 class AdjacencyListGraph {
     
     //Each vertex can have many edges from other nodes
-    class EdgeList {
+    class EdgeListItem {
         var vertex: Vertex
         var edges: [Edge] = []
         
@@ -43,19 +43,19 @@ class AdjacencyListGraph {
         }
     }
     
-    var adjacencyList = [EdgeList]()
+    var adjacencyList = [EdgeListItem]()
     
     func createVertex(_ value: Int) -> Vertex {
         //Check for existing vertex, the data must be unique
         for list in adjacencyList {
-            if list.vertex.data == value {
+            if list.vertex.value == value {
                 return list.vertex
             }
         }
         
         //It was not found, so create a new one
-        let vertex = Vertex(index: adjacencyList.count, data: value)
-        adjacencyList.append(EdgeList(vertex: vertex))
+        let vertex = Vertex(index: adjacencyList.count, value: value)
+        adjacencyList.append(EdgeListItem(vertex: vertex))
         return vertex
     }
     
@@ -78,7 +78,7 @@ class AdjacencyListGraph {
         let edgeList = adjacencyList[from.index].edges
         
         for edge in edgeList {
-            if edge.to.data == to.data {
+            if edge.to.value == to.value {
                 return edge.weight
             }
         }
@@ -102,11 +102,12 @@ class AdjacencyListGraph {
 2 | - X X -
 3 | - - - -
  
- # - A node, represented in both row and column
- X - A connection between nodes, the X would be a double showing the weight in this instance
- - - No connection between the nodes
+ # = A node, represented in both row and column
+ X = A connection between nodes, the X would be a double showing the weight in this instance
+ - = No connection between the nodes
  
 */
+
 class AdjacencyMatrixGraph {
     var adjacencyMatrix: [[Double?]] = []
     var vertexes: [Vertex] = []
@@ -114,13 +115,13 @@ class AdjacencyMatrixGraph {
     func createVertex(_ value: Int) -> Vertex {
         //Check for existing vertex
         for vertex in vertexes {
-            if vertex.data == value {
+            if vertex.value == value {
                 return vertex
             }
         }
         
         //Make a new vertex
-        let vertex = Vertex(index: value, data: adjacencyMatrix.count)
+        let vertex = Vertex(index: value, value: adjacencyMatrix.count)
         vertexes.append(vertex)
         
         //Add a new column
@@ -146,6 +147,10 @@ class AdjacencyMatrixGraph {
     
     func weightFrom(_ from: Vertex, to: Vertex) -> Double? {
         return adjacencyMatrix[from.index-1][to.index-1]
+    }
+    
+    func getConnections(_ from: Vertex) -> [Double] {
+        return adjacencyMatrix[from.index-1].flatMap { $0 }
     }
     
 }
@@ -175,7 +180,7 @@ graph.weightFrom(v5, to: v2)
 
 /*
 
- Depth First Search
+ Breadth First Search
 
  Starting with a node, queue up connecting to see if they are the target node.
  If not target node, get their connections, and add the current node to a list of previously searched nodes.
@@ -202,11 +207,11 @@ extension AdjacencyListGraph {
                 return exploredIndexes
             }
             
-            let neighbors = getConnections(current)
-            for neighbor in neighbors {
-                let index = neighbor.to.index
+            let connections = getConnections(current)
+            for connection in connections {
+                let index = connection.to.index
                 if !exploredIndexes.contains(index) {
-                    queue.append(neighbor.to)
+                    queue.append(connection.to)
                 }
             }
             

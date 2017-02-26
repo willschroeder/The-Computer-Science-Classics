@@ -11,35 +11,6 @@ Often numbers, but works for anything that can be sorted
 
 var numberList = [8, 2, 10, 9, 11, 7, 4, 3, 23, 5, 86, 23, 9, 1, 86]
 
-//Bubble Sort
-func bubbleSort(numberList: [Int]) -> [Int] {
-    guard numberList.count > 1 else { return numberList }
-
-    var a = numberList
-    
-    while true {
-        var swapped = false
-        
-        //Run though list swapping two values if the one on the left is lower than the one on the right
-        for i in 1..<a.count {
-            if a[i] < a[i-1] {
-                swap(&a[i], &a[i-1])
-                swapped = true
-            }
-        }
-        
-        //If it completes an entire pass with out a swap, the list is sorted
-        if !swapped {
-            break
-        }
-        
-    }
-    
-    return a
-}
-
-bubbleSort(numberList: numberList)
-
 //Insertion Sort O(n^2)
 //Inserting a number at a time into a sorted section of the array
 //This sort traverses though an array, picking each number, 

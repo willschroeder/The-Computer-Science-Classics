@@ -87,25 +87,25 @@ class LinkedList<T> {
         return node!.value
     }
     
-    private func nodesBeforeAndAFter(index: Int) -> (Node?, Node?) {
+    private func nodesBeforeAndAfter(index: Int) -> (Node?, Node?) {
         assert(index >= 0)
         
         var i = index
-        var next = head
         var prev: Node?
+        var current = head
         
-        while next != nil && i > 0 {
+        while current != nil && i > 0 {
             i -= 1
-            prev = next
-            next = next!.next
+            prev = current
+            current = current!.next
         }
         assert(i == 0)
         
-        return (prev, next)
+        return (prev, current)
     }
     
     func insert(value: T, atIndex index: Int) {
-        let (prev, next) = nodesBeforeAndAFter(index: index)
+        let (prev, next) = nodesBeforeAndAfter(index: index)
         let newNode = Node(value: value)
         
         newNode.previous = prev
@@ -123,18 +123,17 @@ class LinkedList<T> {
     }
     
     func removeNode(node: Node) -> T {
-        let prev = node.previous
+        let previous = node.previous
         let next = node.next
         
-        if let prev = prev {
-            prev.next = next
+        if previous != nil {
+            previous!.next = next
         }
-            
         //Node is first, aka the head
         else {
             head = next
         }
-        next?.previous = prev
+        next?.previous = previous
         
         node.previous = nil
         node.next = nil

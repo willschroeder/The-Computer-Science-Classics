@@ -58,7 +58,7 @@ func allCombinations() {
 allCombinations()
 
 // O(2^N) - Exponential
-// An algo whose grouth doubles with each addition to the input, pretty damn expensive 
+// An algo whose growth doubles with each addition to the input, pretty damn expensive 
 
 func fibonacci(number: Int) -> Int {
     if number <= 1 {
@@ -77,30 +77,37 @@ fibonacci(number: 11)
 // This "cutting the data in half" technique is called logarithmitic, or log for short
 
 func binarySearch(key: Int, min: Int, max: Int) {
+    // If min as surpassed max, the value was not found
+    // This is because it has narrowed it down to the slot where it should be
+    // but because it is not there, min and max will slip one past each other
+    if min > max {
+        print("value \(key) NOT found..")
+        return
+    }
     
     //Middle of the array
-    let midIndex = round(Double((min + max) / 2))
+    let midIndex = Int(round(Double((min + max) / 2)))
     
     //The value at the middle of the array
-    let midNumber = numberList[Int(midIndex)]
-
+    let midNumber = numberList[midIndex]
+    
     //reduce the range
-    if midNumber > key {
-        binarySearch(key: key, min: min, max: Int(midIndex) - 1)
+    if key < midNumber {
+        binarySearch(key: key, min: min, max: midIndex - 1)
     }
-    
+        
     //increase the range
-    else if (midNumber < key ) {
-        binarySearch(key: key, min: Int(midIndex) + 1, max: max)
+    else if key > midNumber {
+        binarySearch(key: key, min: midIndex + 1, max: max)
     }
     
-    else {
+    else if key == midNumber {
         print("value \(key) found..")
     }
-    
 }
 
-binarySearch(key: 7, min: 0, max: 10)
+binarySearch(key: 7, min: 0, max: numberList.count-1)
+
 
 // O(N log N) = "Devide and Conquer"
 // If every time the data is split in half, but not discared like above, it is N log N

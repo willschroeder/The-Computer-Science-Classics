@@ -14,14 +14,10 @@
       S (word)
 */
 
-
-//https://github.com/raywenderlich/swift-algorithm-club/tree/master/Trie
-//https://github.com/raywenderlich/swift-algorithm-club/blob/master/Trie/Trie.playground/Sources/Trie.swift
-
 class Node {
     var value: Character?
     weak var parent: Node?
-    var children: [Character: Node] = [:]
+    var children: [Character: Node] = [:] // A hashmap holding a char(key) to a node(value)
     var isAWord = false
     
     init() {}
@@ -45,31 +41,32 @@ class Trie {
         var currentNode = root
         
         var characters = Array(word.lowercased().characters)
-        var characterIndex = 0
+        var i = 0
         
         //Start traversing though the existing tree, using each character to determine the next node
-        while characterIndex < characters.count {
-            let character = characters[characterIndex]
+        while i < characters.count {
+            let character = characters[i]
             
             //If there is a node for this character, access it
-            if let child = currentNode.children[character] {
-                currentNode = child
+            if let childNode = currentNode.children[character] {
+                currentNode = childNode
             }
+                
             //Otherwise, we need to make one, and assign it the current character
             else {
                 currentNode.add(child: character)
                 currentNode = currentNode.children[character]!
             }
             
-            characterIndex += 1
+            i += 1
         }
         
         //We have now either traversed or created the node for the last character, so its a word
         currentNode.isAWord = true
     }
     
-    func contains(word: String) -> Bool {
-        if word.isEmpty { return false }
+    func contains(word: String) -> Node? {
+        if word.isEmpty { return nil }
         var currentNode = root
         
         var characters = Array(word.lowercased().characters)
@@ -82,49 +79,29 @@ class Trie {
                 characterIndex += 1
             }
             else {
-                return false
+                return nil
             }
         }
         
         //We may not have marked this as a word, even if we have the nodes for it
-        return currentNode.isAWord
+        return currentNode.isAWord ? currentNode : nil
     }
     
     func remove(word: String) {
         if word.isEmpty { return }
-        var currentNode = root
-
-        var characters = Array(word.lowercased().characters)
-        var characterIndex = 0
         
-        //Traverse to the end, if we are unable to reach it, we never had this word to begin with
-        while characterIndex < characters.count {
-            guard let child = currentNode.children[characters[characterIndex]] else { return }
-            currentNode = child
-            characterIndex += 1
-        }
+        var currentNode = contains(word: word)!
+        currentNode.isAWord = false
         
-        //This node has children that depend on it, so it can't be removed. We can unmark it as a word though.
-        if currentNode.children.count > 0 {
-            currentNode.isAWord = false
-        }
-        //Otherwise, we can remove nodes moving backwards until we reach one that isn't a word
-        else {
-            var characterToRemove = currentNode.value
-            //Until we reach the end of the beginning of the word, or we find a node thats is a word
-            while currentNode.children.count == 0 {
-                //While we can still get a parent that isnt a word...
-                if let parent = currentNode.parent, parent.isAWord == false {
-                    //move the current node up to the parent, and delete the child
-                    currentNode = parent
-                    currentNode.children[characterToRemove!] = nil
-                    characterToRemove = currentNode.value
-                }
-                else {
-                    //We found a word
-                    break
-                }
-            }
+        //Remove until we hit root or a word
+        while
+            currentNode !== root,
+            currentNode.children.count == 0,
+            !currentNode.isAWord {
+                
+            let characterToRemove = currentNode.value
+            currentNode = currentNode.parent!
+            currentNode.children[characterToRemove!] = nil
         }
     }
 }
@@ -137,13 +114,13 @@ trie.insert(word: "apple")
 trie.insert(word: "ap")
 trie.insert(word: "a")
 
-trie.contains(word: "apple")
-trie.contains(word: "ap")
-trie.contains(word: "a")
+trie.contains(word: "apple")?.value
+trie.contains(word: "ap")?.value
+trie.contains(word: "a")?.value
 
 trie.remove(word: "apple")
-trie.contains(word: "a")
-trie.contains(word: "apple")
+trie.contains(word: "a")?.value
+trie.contains(word: "apple")?.value
 
 trie.insert(word: "apple")
-trie.contains(word: "apple")
+trie.contains(word: "apple")?.value
