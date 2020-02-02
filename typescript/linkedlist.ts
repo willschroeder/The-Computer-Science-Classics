@@ -1,4 +1,4 @@
-class LLNode {
+type LLNode = {
     value: number 
     next?: LLNode
 }
