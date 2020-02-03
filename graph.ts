@@ -51,8 +51,23 @@ function breadthFirstSearch(graph: Graph, value: number): boolean {
     return false 
 }
 
-function findPath(): boolean {
-    return false 
+function findPath(graph: Graph, vert: Vertex, value: number, pathSoFar: Array<number>): Array<number>|null {
+    let pathToNode = pathSoFar.concat(vert.index)
+
+    if (vert.value == value) {
+        return pathToNode
+    }
+    
+    let edges = graph.edges[vert.index]
+    for (let i = 0; i < edges.length; i++) {
+        let edge = edges[i]
+        let pathUsingEdge = findPath(graph, edge.to, value, pathToNode)
+        if (pathUsingEdge) {
+            return pathUsingEdge
+        }
+    }
+
+    return null 
 }
 
 /*
@@ -85,5 +100,8 @@ print(graph)
 
 print(breadthFirstSearch(graph, 5))
 print(breadthFirstSearch(graph, 22))
+
+print(findPath(graph, v[0], 5, []))
+print(findPath(graph, v[0], 55, []))
 
 
