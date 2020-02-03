@@ -6,7 +6,6 @@ type Vertex = {
 type Edge = {
     to: Vertex
     from: Vertex
-    weight: number
 }
 
 type Graph = {
@@ -26,8 +25,8 @@ function addVertex(graph: Graph, value: number): Vertex {
     return vert 
 }
 
-function addDirectedEdge(graph: Graph, from: Vertex, to: Vertex, weight = 5) {
-    graph.edges[from.index].push({to: to, from: from, weight: weight})
+function addDirectedEdge(graph: Graph, from: Vertex, to: Vertex) {
+    graph.edges[from.index].push({to: to, from: from})
 }
 
 function breadthFirstSearch(graph: Graph, value: number): boolean {
@@ -52,8 +51,8 @@ function breadthFirstSearch(graph: Graph, value: number): boolean {
     return false 
 }
 
-function findPath() {
-
+function findPath(): boolean {
+    return false 
 }
 
 /*
