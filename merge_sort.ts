@@ -6,6 +6,7 @@ function merge(left: Array<number>, right: Array<number>): Array<number> {
     while (li < left.length && ri < right.length) {
         let leftValue = left[li]
         let rightValue = right[ri]
+        
         if (leftValue < rightValue) {
             a.push(leftValue)
             li += 1

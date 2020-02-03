@@ -1,9 +1,9 @@
-function binarySearch(a: Array<number>, target: number, min: number, max: number): boolean {
-    if (min > max) {
+function binarySearch(a: Array<number>, target: number, left: number, right: number): boolean {
+    if (left > right) {
         return false 
     }
 
-    const midIndex = Math.round((min + max) / 2)
+    const midIndex = Math.round((left + right) / 2)
     const midValue = a[midIndex]
 
     if (midValue == target) {
@@ -11,11 +11,11 @@ function binarySearch(a: Array<number>, target: number, min: number, max: number
     }
 
     if (target < midValue) {
-        return binarySearch(a, target, min, midIndex-1)
+        return binarySearch(a, target, left, midIndex-1)
     }
 
     if (target > midValue) {
-        return binarySearch(a, target, midIndex+1, max)
+        return binarySearch(a, target, midIndex+1, right)
     }
 
     throw `shouldn't end up here, midIndex: ${midIndex} midVal: ${midValue} target: ${target}`
