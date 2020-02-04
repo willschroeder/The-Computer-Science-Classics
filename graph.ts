@@ -70,6 +70,7 @@ function findPath(graph: Graph, vert: Vertex, value: any, pathSoFar: Array<numbe
     return null 
 }
 
+// Based on https://www.geeksforgeeks.org/topological-sorting/
 function topologicalSort(graph: Graph): Array<Vertex> {
     enum Status {
         Unprocessed,
@@ -84,25 +85,24 @@ function topologicalSort(graph: Graph): Array<Vertex> {
         if (visited[i] == Status.Processed) {
             continue 
         }
-        if (visited[i] == Status.Processing) {
-            throw `vertex ${i} cycle detected, root`
-        }
 
         let toProcess: Array<Vertex> = [graph.verts[i]]
         let processed: Array<Vertex> = []
         while(toProcess.length > 0) {
-            let node = toProcess.shift()
-            visited[node.index] = Status.Processing 
-            processed.push(node)
+            let vert = toProcess.shift()
+            visited[vert.index] = Status.Processing 
+            processed.push(vert)
 
-            graph.edges[node.index].forEach((edge) => {
-                let nodeToVisit = edge.to 
-                let nodeToVisitStatus = visited[nodeToVisit.index]
-                if (nodeToVisitStatus == Status.Unprocessed) {
-                    toProcess.push(nodeToVisit)
-                }
-                else if (nodeToVisitStatus == Status.Processing) {
-                    throw `vertex ${nodeToVisit.index} cycle detected, edge lookup`
+            graph.edges[vert.index].forEach((edge) => {
+                let vertToVisit = edge.to 
+                switch(visited[vertToVisit.index]) {
+                    case Status.Unprocessed:
+                        toProcess.push(vertToVisit)
+                        break 
+                    case Status.Processing:
+                        throw `cycle detected ${edge.from.index} -> ${edge.to.index}, edge lookup`
+                    case Status.Processed:
+                        break 
                 }
             })
         }
@@ -167,5 +167,6 @@ addDirectedEdge(dag, v2[5], v2[1])
 addDirectedEdge(dag, v2[1], v2[3])
 addDirectedEdge(dag, v2[5], v2[0])
 addDirectedEdge(dag, v2[3], v2[2])
+// addDirectedEdge(dag, v2[2], v2[3]) // Uncomment to cause edge exception
 
 print(topologicalSort(dag).map((i) => { return i.value }))
