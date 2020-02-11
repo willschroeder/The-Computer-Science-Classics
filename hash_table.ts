@@ -28,6 +28,7 @@ function slotForKey(key: string, size: number): number {
     return hashStr(key) % size
 }
 
+// O(1) slot lookup, O(n) if collision if having to search though slot
 function findHashValueIndex(a: Array<HashValue>, key: string): number {
     if (a.length == 0) {
         return -1 
@@ -44,6 +45,7 @@ function findHashValueIndex(a: Array<HashValue>, key: string): number {
     return index
 }
 
+// O(1) slot lookup, O(1) amortized to push value
 function set(hash: HashTable, key: string, value: string) {
     let slotIndex = slotForKey(key, hash.size)
     let slotListIndex = findHashValueIndex(hash.a[slotIndex], key)
@@ -56,6 +58,7 @@ function set(hash: HashTable, key: string, value: string) {
     }
 }
 
+// O(1)
 function get(hash: HashTable, key: string): string|null {
     let slotIndex = slotForKey(key, hash.size)
     let slotListIndex = findHashValueIndex(hash.a[slotIndex], key)
@@ -67,6 +70,7 @@ function get(hash: HashTable, key: string): string|null {
     return null 
 } 
 
+// O(1)
 function del(hash: HashTable, key: string) {
     let slotIndex = slotForKey(key, hash.size)
     let slotListIndex = findHashValueIndex(hash.a[slotIndex], key)

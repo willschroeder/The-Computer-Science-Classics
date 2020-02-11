@@ -1,9 +1,12 @@
+// O(1)
 function swap(a: Array<number>, i: number, j: number) {
     let temp = a[i]
     a[i] = a[j]
     a[j] = temp 
 }
 
+// O(n!)
+// 5 * 4 * 3 * 2 * 1 is the amount of permutations to make at each step, because thats how many letters are left to swap 
 function allPermutations(left: Array<number>, right: Array<number>) {
     if (right.length == 0) {
         console.log(left)

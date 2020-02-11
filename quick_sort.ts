@@ -1,15 +1,19 @@
+// O(n * log n) 
+// n * (log n + log n)
+// length of array * amount of times the array can be devided in half
 function quicksort(a: Array<number>, left: number, right: number) {
-    let index = partition(a, left, right)
+    let index = partition(a, left, right) // n
     if (left < index - 1) {
-        quicksort(a, left, index-1)
+        quicksort(a, left, index-1) // log n
     }
     if (index < right) {
-        quicksort(a, index, right)
+        quicksort(a, index, right) // log n 
     }
 }
 
+// O(n)
 function partition(a: Array<number>, left: number, right: number) {
-    let pivotValue = a[Math.floor((left + right)/2)]
+    let pivotValue = a[left] // all we need is a value, could pick any one in left->right zone 
     while (left <= right) {
         while(a[left] < pivotValue) {
             left += 1

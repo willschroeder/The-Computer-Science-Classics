@@ -3,6 +3,13 @@ type QueueNode = {
     next?: QueueNode
 }
 
+/*
+
+removeFrom          addTo
+|                   |
+1 -> 2 -> 3 -> 4 -> 5
+
+*/
 type Queue = {
     addTo?: QueueNode
     removeFrom?: QueueNode
@@ -12,6 +19,7 @@ function print(val: any) {
     console.log(val)
 }
 
+// O(1)
 function push(queue: Queue, value: number) {
     if (!queue.addTo) {
         queue.addTo = {value: value}
@@ -25,6 +33,7 @@ function push(queue: Queue, value: number) {
     }
 }
 
+// O(1)
 function pop(queue: Queue): number {
     if (!queue.removeFrom) {
         throw "empty queue"
@@ -40,6 +49,7 @@ function pop(queue: Queue): number {
     return val
 }
 
+// O(n)
 function toArr(queue: Queue) {
     let arr = []
     let node = queue.removeFrom

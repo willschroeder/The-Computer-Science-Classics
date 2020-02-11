@@ -1,3 +1,7 @@
+/*
+ O(3 ^ n)
+ 3 Branches run for each number of stairs, every time it needs to be calculated
+*/
 function stairJumper(jumpsTaken: Array<number>, stairsLeft: number, permutations: Array<Array<number>>) {
     if (stairsLeft < 0) {
         return 
@@ -22,6 +26,11 @@ let perms = []
 stairJumper([], 10, perms)
 console.log(perms.length)
 
+/*
+O(n)
+3 different branches * stairs = 3n
+Multiplied instead of power because the value is cached, and each branch wont recalculate the value
+*/
 function stairJumperMemo(jumpsTaken: number, stairsLeft: number, memo: {[stairsLeft: number]: number}): number {
     if (stairsLeft == 0) {
         return 1

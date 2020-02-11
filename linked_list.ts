@@ -7,6 +7,7 @@ function print(val: any) {
     console.log(val)
 }
 
+// O(n)
 function toArr(node: LLNode) {
     let arr = []
     while (node) {
@@ -16,6 +17,7 @@ function toArr(node: LLNode) {
     return arr
 }
 
+// O(n)
 function add(node: LLNode, value: number) {
     while (node) {
         if (!node.next) {
@@ -26,6 +28,7 @@ function add(node: LLNode, value: number) {
     }
 }
 
+// O(n)
 function removeWithOnePointer(start: LLNode, index: number): LLNode|null {
     if (index == 0) {
         return start.next
@@ -56,6 +59,7 @@ function removeWithOnePointer(start: LLNode, index: number): LLNode|null {
     return start 
 }
 
+// O(n)
 function remove(start: LLNode, index: number): LLNode|null {
     if (index == 0) {
         return start.next
@@ -91,6 +95,7 @@ function remove(start: LLNode, index: number): LLNode|null {
     return start
 }
 
+// O(n)
 function xNodesFromEnd(start: LLNode, x: number): number {
     let i = x 
     let lag = start 
@@ -114,6 +119,7 @@ function xNodesFromEnd(start: LLNode, x: number): number {
     return lag.value 
 }
 
+// O(n)
 function reverse(oldHead: LLNode): LLNode {
     if (!oldHead.next) {
         return oldHead 

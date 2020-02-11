@@ -9,6 +9,7 @@ function print(val: any) {
     console.log(val)
 }
 
+// O(log n)
 function insert(root: BSTNode, val: number) {
     if (val > root.value) {
         if (!root.right) {
@@ -28,6 +29,7 @@ function insert(root: BSTNode, val: number) {
     }
 }
 
+// O(n)
 function inOrder(root: BSTNode, arr: Array<number>) {
     if (root.left) {
         inOrder(root.left, arr)
@@ -38,6 +40,7 @@ function inOrder(root: BSTNode, arr: Array<number>) {
     }
 }
 
+// O(log n) if tree is balanced, worse case is O(n)
 function depthFirstSearch(root: BSTNode, val: number): BSTNode|null {
     if (root.value == val) {
         return root 
@@ -54,6 +57,7 @@ function depthFirstSearch(root: BSTNode, val: number): BSTNode|null {
     return null 
 }
 
+// O(n) as it takes no advantage of the tree being balanced
 function breadthFirstSearch(root: BSTNode, val: number): boolean {
     let arr: Array<BSTNode> = [root]
     
@@ -75,6 +79,7 @@ function breadthFirstSearch(root: BSTNode, val: number): boolean {
     return false 
 }
 
+// O(n)
 function depth(root: BSTNode): number {
     if (!root.left && !root.right) {
         return 1 
@@ -93,6 +98,7 @@ function depth(root: BSTNode): number {
     return Math.max(leftDepth, rightDepth) + 1
 }
 
+// O(n)
 function validTree(root: BSTNode, min: number, max: number): boolean {
     if (root.value > min && root.value < max) {
         let leftValid = true 
@@ -111,6 +117,7 @@ function validTree(root: BSTNode, min: number, max: number): boolean {
     return false 
 }
 
+// O(n) as if the tree is just right nodes, you would have to get every one 
 function pathToRoot(node: BSTNode): Array<BSTNode> {
     let arr = []
     while (node) {
@@ -120,21 +127,22 @@ function pathToRoot(node: BSTNode): Array<BSTNode> {
     return arr 
 }
 
+// O(n)
 function firstCommonNode(root: BSTNode, x: number, y: number): BSTNode|null {
-    let xNode = depthFirstSearch(root, x)
-    let yNode = depthFirstSearch(root, y)
+    let xNode = depthFirstSearch(root, x) // log n 
+    let yNode = depthFirstSearch(root, y) // log n 
 
     if (!xNode || !yNode) {
         throw "X or Y value not found"
     }
 
     let lastCommonNode = x[0]
-    let xPath = pathToRoot(xNode)
-    let yPath = pathToRoot(yNode)
+    let xPath = pathToRoot(xNode) // n 
+    let yPath = pathToRoot(yNode) // n 
 
-    while(xPath.length > 0 && yPath.length > 0) {
-        const x = xPath.pop()
-        const y = yPath.pop()
+    while(xPath.length > 0 && yPath.length > 0) { // n 
+        const x = xPath.pop() // 1
+        const y = yPath.pop() // 1
 
         if (x.value != y.value) {
             return lastCommonNode

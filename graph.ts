@@ -17,6 +17,7 @@ function print(val: any) {
     console.log(val)
 }
 
+// O(1)
 function addVertex(graph: Graph, value: any): Vertex {
     let index = graph.verts.length
     let vert = {value: value, index: index}
@@ -25,10 +26,12 @@ function addVertex(graph: Graph, value: any): Vertex {
     return vert 
 }
 
+// O(1)
 function addDirectedEdge(graph: Graph, from: Vertex, to: Vertex) {
     graph.edges[from.index].push({to: to, from: from})
 }
 
+// O(n)
 function breadthFirstSearch(graph: Graph, value: any): boolean {
     let toSearch: Array<Vertex> = [graph.verts[0]]
     let serached = {}
@@ -51,17 +54,19 @@ function breadthFirstSearch(graph: Graph, value: any): boolean {
     return false 
 }
 
+// This is an example of backtracking, assuming there are no circular references
+// O(vertex + edges)
 function findPath(graph: Graph, vert: Vertex, value: any, pathSoFar: Array<number>): Array<number>|null {
-    let pathToNode = pathSoFar.concat(vert.index)
+    let pathToNode = pathSoFar.concat(vert.index) // O(vertex) each visited once, assuming no loops, or marked at visited 
 
     if (vert.value == value) {
         return pathToNode
     }
     
     let edges = graph.edges[vert.index]
-    for (let i = 0; i < edges.length; i++) {
+    for (let i = 0; i < edges.length; i++) { // O(edges)
         let edge = edges[i]
-        let pathUsingEdge = findPath(graph, edge.to, value, pathToNode)
+        let pathUsingEdge = findPath(graph, edge.to, value, pathToNode) 
         if (pathUsingEdge) {
             return pathUsingEdge
         }
@@ -71,6 +76,7 @@ function findPath(graph: Graph, vert: Vertex, value: any, pathSoFar: Array<numbe
 }
 
 // Based on https://www.geeksforgeeks.org/topological-sorting/
+// O(n), O(vertex + edges)
 function topologicalSort(graph: Graph): Array<Vertex> {
     enum Status {
         Unprocessed,
@@ -81,19 +87,19 @@ function topologicalSort(graph: Graph): Array<Vertex> {
     let visited: Array<Status> = new Array(graph.verts.length).fill(Status.Unprocessed)
     let order: Array<Vertex> = []
     
-    for(let i = 0; i < graph.verts.length; i++) {
+    for(let i = 0; i < graph.verts.length; i++) { // O(verts)
         if (visited[i] == Status.Processed) {
             continue 
         }
 
-        let toProcess: Array<Vertex> = [graph.verts[i]]
+        let toProcess: Array<Vertex> = [graph.verts[i]] // continuing verts usage
         let processed: Array<Vertex> = []
         while(toProcess.length > 0) {
             let vert = toProcess.shift()
             visited[vert.index] = Status.Processing 
             processed.push(vert)
 
-            graph.edges[vert.index].forEach((edge) => {
+            graph.edges[vert.index].forEach((edge) => { // O(edges), each edge will only be accessed once, so this isnt going to square the O
                 let vertToVisit = edge.to 
                 switch(visited[vertToVisit.index]) {
                     case Status.Unprocessed:

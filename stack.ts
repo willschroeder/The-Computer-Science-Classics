@@ -12,6 +12,7 @@ function print(val: any) {
     console.log(val)
 }
 
+// O(1)
 function push(stack: Stack, value: number) {
     if (!stack.head) {
         stack.head = {
@@ -29,6 +30,7 @@ function push(stack: Stack, value: number) {
     }
 }
 
+// O(1)
 function pop(stack: Stack): number {
     if (!stack.head) {
         throw "stack is empty"
@@ -39,10 +41,12 @@ function pop(stack: Stack): number {
     return val 
 }
 
+// O(1)
 function highest(stack: Stack): number {
     return stack.head?.highest
 }
 
+// O(1)
 function peek(stack: Stack): number {
     return stack.head?.value
 }

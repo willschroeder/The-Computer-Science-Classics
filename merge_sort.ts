@@ -1,9 +1,10 @@
+// O (n)
 function merge(left: Array<number>, right: Array<number>): Array<number> {
     let li = 0
     let ri = 0
     let a = []
 
-    while (li < left.length && ri < right.length) {
+    while (li < left.length && ri < right.length) { // n
         let leftValue = left[li]
         let rightValue = right[ri]
         
@@ -17,12 +18,12 @@ function merge(left: Array<number>, right: Array<number>): Array<number> {
         }
     } 
     
-    while (li < left.length) {
+    while (li < left.length) { // n
         a.push(left[li])
         li += 1
     }
 
-    while (ri < right.length) {
+    while (ri < right.length) { // n
         a.push(right[ri])
         ri += 1
     }
@@ -30,15 +31,16 @@ function merge(left: Array<number>, right: Array<number>): Array<number> {
     return a
 }
 
+// O (n * log n)
 function mergeSort(a: Array<number>): Array<number> {
     if (a.length == 1) {
         return a
     }
 
     let middleIndex = Math.floor(a.length/2)
-    let left = mergeSort(a.slice(0,middleIndex))
-    let right = mergeSort(a.slice(middleIndex))
-    return merge(left, right)
+    let left = mergeSort(a.slice(0,middleIndex)) // log n 
+    let right = mergeSort(a.slice(middleIndex)) // log n 
+    return merge(left, right) // n 
 }
 
 

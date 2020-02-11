@@ -1,3 +1,4 @@
+// O(log n), keep dividing in half until number found
 function binarySearch(a: Array<number>, target: number, left: number, right: number): boolean {
     if (left > right) {
         return false 
