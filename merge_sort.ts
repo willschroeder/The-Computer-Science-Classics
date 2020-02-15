@@ -47,3 +47,5 @@ function mergeSort(a: Array<number>): Array<number> {
 
 console.log(merge([1,3,5,7], [2,4,6,8,9,10]))
 console.log(mergeSort([8, 2, 10, 9, 11, 7, 4, 3, 23, 5, 86, 23, 9, 1, 86]))
+
+export {}

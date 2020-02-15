@@ -1,8 +1,8 @@
-class TrieNode {
+type TrieNode = {
     value?: string 
     parent?: TrieNode
     isWord: boolean
-    children: {[letter: number]: TrieNode}
+    children: {[letter: string]: TrieNode}
 }
 
 function print(val: any) {
@@ -26,14 +26,14 @@ function insert(root: TrieNode, word: String) {
     node.isWord = true 
 }
 
-function find(root: TrieNode, word: String): TrieNode|null {
+function find(root: TrieNode, word: String): TrieNode|undefined {
     let node = root 
 
     while(word.length > 0) {
         let letter = word[0]
 
         if (!node.children[letter]) {
-            return null 
+            return 
         }
 
         word = word.slice(1)
@@ -43,12 +43,10 @@ function find(root: TrieNode, word: String): TrieNode|null {
     if (node.isWord) {
         return node 
     }
-
-    return null 
 }
 
 function contains(root: TrieNode, word: string): boolean {
-    return find(root, word) !== null 
+    return find(root, word) !== undefined 
 }
 
 function remove(root: TrieNode, word: String) {
@@ -57,13 +55,20 @@ function remove(root: TrieNode, word: String) {
         return 
     }
    
+    node.isWord = false 
+
     while(node) {
-        delete node.parent[node.value]
-        node = node.parent
+        if (node.isWord || node.value == undefined) {
+            return 
+        }
+
+        let letter = node.value
+        node = node.parent 
+        delete node!.children[letter]
     }
 }
 
-let root: TrieNode = {value: null, parent: null, isWord: false, children: {}}
+let root: TrieNode = {isWord: false, children: {}}
 
 print(contains(root, "test"))
 
@@ -76,3 +81,5 @@ print(contains(root, "a"))
 
 remove(root, "apple")
 print(contains(root, "apple"))
+
+export {}

@@ -1,0 +1,13 @@
+{
+  "name": "the-computer-science-classics",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "scripts": {
+    "test": "npx jest"
+  },
+  "dependencies": {
+    "@types/jest": "^25.1.2",
+    "jest": "^25.1.0",
+    "typescript": "^3.7.5"
+  }
+}

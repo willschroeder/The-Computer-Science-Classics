@@ -105,3 +105,5 @@ print(get(smallHash, "foo"))
 print(get(smallHash, "test"))
 del(smallHash, "foo")
 print(smallHash.a)
+
+export {}

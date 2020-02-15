@@ -38,3 +38,5 @@ function partition(a: Array<number>, left: number, right: number) {
 let numberList = [8, 2, 10, 9, 11, 7, 4, 3, 23, 5, 86, 23, 9, 1, 86]
 quicksort(numberList, 0, numberList.length-1)
 console.log(numberList)
+
+export {}

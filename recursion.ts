@@ -22,7 +22,7 @@ function stairJumper(jumpsTaken: Array<number>, stairsLeft: number, permutations
     }
 }
 
-let perms = []
+let perms: Array<Array<number>> = []
 stairJumper([], 10, perms)
 console.log(perms.length)
 
@@ -56,3 +56,5 @@ function stairJumperMemo(jumpsTaken: number, stairsLeft: number, memo: {[stairsL
 }
 
 console.log(stairJumperMemo(0, 10, {}))
+
+export {}

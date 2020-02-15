@@ -34,10 +34,10 @@ function addDirectedEdge(graph: Graph, from: Vertex, to: Vertex) {
 // O(n)
 function breadthFirstSearch(graph: Graph, value: any): boolean {
     let toSearch: Array<Vertex> = [graph.verts[0]]
-    let serached = {}
+    let serached: Array<boolean> = []
 
     while (toSearch.length > 0) {
-        let vert = toSearch.shift()
+        let vert = toSearch.shift()!
         if (vert.value == value) {
             return true 
         }
@@ -56,7 +56,7 @@ function breadthFirstSearch(graph: Graph, value: any): boolean {
 
 // This is an example of backtracking, assuming there are no circular references
 // O(vertex + edges)
-function findPath(graph: Graph, vert: Vertex, value: any, pathSoFar: Array<number>): Array<number>|null {
+function findPath(graph: Graph, vert: Vertex, value: any, pathSoFar: Array<number>): Array<number>|undefined {
     let pathToNode = pathSoFar.concat(vert.index) // O(vertex) each visited once, assuming no loops, or marked at visited 
 
     if (vert.value == value) {
@@ -72,7 +72,6 @@ function findPath(graph: Graph, vert: Vertex, value: any, pathSoFar: Array<numbe
         }
     }
 
-    return null 
 }
 
 // Based on https://www.geeksforgeeks.org/topological-sorting/
@@ -95,7 +94,7 @@ function topologicalSort(graph: Graph): Array<Vertex> {
         let toProcess: Array<Vertex> = [graph.verts[i]] // continuing verts usage
         let processed: Array<Vertex> = []
         while(toProcess.length > 0) {
-            let vert = toProcess.shift()
+            let vert = toProcess.shift()!
             visited[vert.index] = Status.Processing 
             processed.push(vert)
 
@@ -176,3 +175,5 @@ addDirectedEdge(dag, v2[3], v2[2])
 // addDirectedEdge(dag, v2[2], v2[3]) // Uncomment to cause edge exception
 
 print(topologicalSort(dag).map((i) => { return i.value }))
+
+export {}

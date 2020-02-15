@@ -43,7 +43,7 @@ function pop(queue: Queue): number {
     queue.removeFrom = queue.removeFrom.next
     
     if (!queue.removeFrom) {
-        queue.addTo = null
+        queue.addTo = undefined
     }
 
     return val
@@ -72,3 +72,5 @@ print(pop(queue))
 print(pop(queue))
 push(queue, 1)
 print(pop(queue))
+
+export {}

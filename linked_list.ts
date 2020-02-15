@@ -10,9 +10,10 @@ function print(val: any) {
 // O(n)
 function toArr(node: LLNode) {
     let arr = []
-    while (node) {
-        arr.push(node.value)
-        node = node.next
+    let runner: LLNode|undefined = node
+    while (runner) {
+        arr.push(runner.value)
+        runner = node.next
     }
     return arr
 }
@@ -29,13 +30,13 @@ function add(node: LLNode, value: number) {
 }
 
 // O(n)
-function removeWithOnePointer(start: LLNode, index: number): LLNode|null {
+function removeWithOnePointer(start: LLNode, index: number): LLNode|undefined {
     if (index == 0) {
         return start.next
     }
 
     let i = index 
-    let node = start 
+    let node: LLNode|undefined = start 
 
     while (true) {
         if (!node) {
@@ -60,7 +61,7 @@ function removeWithOnePointer(start: LLNode, index: number): LLNode|null {
 }
 
 // O(n)
-function remove(start: LLNode, index: number): LLNode|null {
+function remove(start: LLNode, index: number): LLNode|undefined {
     if (index == 0) {
         return start.next
     }
@@ -70,18 +71,18 @@ function remove(start: LLNode, index: number): LLNode|null {
             start.next = start.next.next 
         }
         else {
-            start.next = null
+            start.next = undefined
         }
         return start
     }
 
-    let one = start 
-    let two = start.next 
+    let one: LLNode|undefined = start 
+    let two: LLNode|undefined = start.next 
 
     let i = index 
     while (i > 0) {
-        one = one.next 
-        two = two.next
+        one = one?.next 
+        two = two?.next
 
         if (!two) {
             throw `no item at index ${i}`
@@ -90,7 +91,7 @@ function remove(start: LLNode, index: number): LLNode|null {
         i -= 1
     }
     
-    one.next = two.next 
+    one!.next = two!.next 
 
     return start
 }
@@ -98,12 +99,12 @@ function remove(start: LLNode, index: number): LLNode|null {
 // O(n)
 function xNodesFromEnd(start: LLNode, x: number): number {
     let i = x 
-    let lag = start 
-    let runner = start 
+    let lag: LLNode|undefined = start 
+    let runner: LLNode|undefined = start 
 
     while(runner) {
         if (i == 0) {
-            lag = lag.next 
+            lag = lag!.next 
         }
         else {
             i -= 1 
@@ -116,16 +117,17 @@ function xNodesFromEnd(start: LLNode, x: number): number {
         throw "list shorter than x"
     }
 
-    return lag.value 
+    return lag!.value 
 }
 
 // O(n)
-function reverse(oldHead: LLNode): LLNode {
+function reverse(node: LLNode): LLNode|undefined {
+    let oldHead: LLNode|undefined = node
     if (!oldHead.next) {
         return oldHead 
     }
 
-    let newHead: LLNode
+    let newHead: LLNode|undefined
 
     while (oldHead) {
         let swap = oldHead
@@ -145,9 +147,11 @@ add(start, 3)
 add(start, 4)
 add(start, 5)
 
-start = remove(start, 2)
-print(toArr((start)))
+start = remove(start, 2)!
+print(toArr((start!)))
 
-print(xNodesFromEnd(start, 3))
+print(xNodesFromEnd(start!, 3))
 
-print(toArr(reverse(start)))
+print(toArr(reverse(start)!))
+
+export {}

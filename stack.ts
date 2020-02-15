@@ -42,12 +42,12 @@ function pop(stack: Stack): number {
 }
 
 // O(1)
-function highest(stack: Stack): number {
+function highest(stack: Stack): number|undefined {
     return stack.head?.highest
 }
 
 // O(1)
-function peek(stack: Stack): number {
+function peek(stack: Stack): number|undefined {
     return stack.head?.value
 }
 

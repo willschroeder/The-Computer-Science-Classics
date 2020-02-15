@@ -29,3 +29,5 @@ function print(val: any) {
 let numberList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 print(binarySearch(numberList, 7, 0, numberList.length-1))
 print(binarySearch(numberList, 77, 0, numberList.length-1))
+
+export {}

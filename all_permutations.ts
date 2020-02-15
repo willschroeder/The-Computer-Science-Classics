@@ -24,3 +24,5 @@ function allPermutations(left: Array<number>, right: Array<number>) {
 }
 
 allPermutations([], [1,2,3,4])
+
+export {}
