@@ -74,6 +74,7 @@ function findPath(graph: Graph, vert: Vertex, value: number|string, pathSoFar: A
 
 // Based on https://www.geeksforgeeks.org/topological-sorting/
 // O(n), O(vertex + edges)
+// This could be made simpler if not checking for cycles, but would get caught in loop if there was 
 function topologicalSort(graph: Graph): Array<Vertex> {
     enum Status {
         Unprocessed,

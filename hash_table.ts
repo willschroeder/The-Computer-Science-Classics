@@ -1,3 +1,5 @@
+export {}
+
 type HashTable = {
     a: Array<Array<HashValue>>
     size: number
@@ -6,10 +8,6 @@ type HashTable = {
 type HashValue = {
     key: string 
     value: string 
-}
-
-function print(val: any) {
-    console.log(val)
 }
 
 // https://github.com/darkskyapp/string-hash/blob/master/index.js
@@ -34,15 +32,13 @@ function findHashValueIndex(a: Array<HashValue>, key: string): number {
         return -1 
     }
 
-    let index = -1
     for (let i = 0; i < a.length; i++) {
         if (a[i].key == key) {
-            index = i 
-            break 
+            return i 
         }
     }
 
-    return index
+    return -1
 }
 
 // O(1) slot lookup, O(1) amortized to push value
@@ -59,15 +55,13 @@ function set(hash: HashTable, key: string, value: string) {
 }
 
 // O(1)
-function get(hash: HashTable, key: string): string|null {
+function get(hash: HashTable, key: string): string|undefined {
     let slotIndex = slotForKey(key, hash.size)
     let slotListIndex = findHashValueIndex(hash.a[slotIndex], key)
 
     if (slotListIndex > -1) {
         return hash.a[slotIndex][slotListIndex].value
     }
-
-    return null 
 } 
 
 // O(1)
@@ -88,22 +82,23 @@ function hashTableConstructor(size: number): HashTable {
     return hash 
 }
 
-print ("Hash Table")
-const hash = hashTableConstructor(10)
-set(hash, "foo", "bar")
-print(get(hash, "foo"))
-set(hash, "foo", "other")
-print(get(hash, "foo"))
-del(hash, "foo")
-print(get(hash, "foo"))
+it ("Hash Table", () => {
+    const hash = hashTableConstructor(10)
+    set(hash, "foo", "bar")
+    expect(get(hash, "foo")).toBe("bar")
+    set(hash, "foo", "other")
+    expect(get(hash, "foo")).toBe("other")
+    del(hash, "foo")
+    expect(get(hash, "foo")).not.toBeDefined()
+})
 
-print ("Hash Table One Slot")
-const smallHash = hashTableConstructor(1)
-set(smallHash, "foo", "bar")
-set(smallHash, "test", "lol")
-print(get(smallHash, "foo"))
-print(get(smallHash, "test"))
-del(smallHash, "foo")
-print(smallHash.a)
+it ("Hash Table One Slot", () => {
+    const smallHash = hashTableConstructor(1)
+    set(smallHash, "foo", "bar")
+    set(smallHash, "test", "lol")
+    expect(get(smallHash, "foo")).toBe("bar")
+    expect(get(smallHash, "test")).toBe("lol")
 
-export {}
+    del(smallHash, "foo")
+    expect(get(smallHash, "foo")).not.toBeDefined()
+})
