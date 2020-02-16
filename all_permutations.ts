@@ -1,3 +1,5 @@
+export {}
+
 // O(1)
 function swap(a: Array<number>, i: number, j: number) {
     let temp = a[i]
@@ -23,6 +25,6 @@ function allPermutations(left: Array<number>, right: Array<number>) {
     }
 }
 
-allPermutations([], [1,2,3,4])
-
-export {}
+it("allPermutations", () => {
+    allPermutations([], [1,2,3,4])
+})

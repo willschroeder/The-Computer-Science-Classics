@@ -1,3 +1,5 @@
+export {}
+
 type BSTNode = {
     value: number 
     parent?: BSTNode
@@ -56,13 +58,13 @@ function depthFirstSearch(root: BSTNode, val: number): BSTNode|undefined {
 }
 
 // O(n) as it takes no advantage of the tree being balanced
-function breadthFirstSearch(root: BSTNode, val: number): boolean {
+function breadthFirstSearch(root: BSTNode, val: number): BSTNode|undefined {
     let arr: Array<BSTNode> = [root]
     
     while (arr.length > 0) {
         const node = arr.shift()!
         if (node.value == val) {
-            return true 
+            return node 
         }
 
         if (node.left) {
@@ -72,9 +74,7 @@ function breadthFirstSearch(root: BSTNode, val: number): boolean {
         if (node.right) {
             arr.push(node.right)
         }
-    }
-
-    return false 
+    } 
 }
 
 // O(n)
@@ -152,14 +152,6 @@ function firstCommonNode(root: BSTNode, x: number, y: number): BSTNode|undefined
     }
 }
 
-function remove(root: BSTNode, val: number) {
-    // TODO 
-    // If has no children, set parent's link to undefined
-    // If left OR right, connect parent's link to child node
-    // If left AND right, find the left most (smallest) node, unlink it, and replace self with node
-        // Left & Right nodes are hooked up differently
-}
-
 //             7
 //            /  \
 //           6    8
@@ -175,30 +167,35 @@ const a = [6,8,9,2,1,4,3,5].map((val: number) => {
     insert(root, val)
 })
 
-print("In order print")
-let arr: Array<number> = []
-inOrder(root, arr)
-print(arr)
+it ("inOrder", () => {
+    let arr: Array<number> = []
+    inOrder(root, arr)
+    expect(arr).toStrictEqual([1,2,3,4,5,6,7,8,9])
+})
 
-print("DFS")
-print(depthFirstSearch(root, 4)?.value)
-print(depthFirstSearch(root, 55)?.value)
+it ("depthFirstSearch", () => {
+    expect(depthFirstSearch(root, 4)?.value).toBe(4)
+    expect(depthFirstSearch(root, 55)?.value).not.toBeDefined()
+})
 
-print("BFS")
-print(breadthFirstSearch(root, 4))
-print(breadthFirstSearch(root, 55))
+it ("breadthFirstSearch", () => {
+    expect(breadthFirstSearch(root, 4)?.value).toBe(4)
+    expect(breadthFirstSearch(root, 55)?.value).not.toBeDefined()
+})
 
-print("Depth")
-print(depth(root))
+it ("depth", () => {
+    expect(depth(root)).toBe(5)
+})
 
-print("Valid Tree")
-print(validTree(root, -100, 100))
+it ("validTree", () => {
+    expect(validTree(root, -100, 100)).toBeTruthy()
+})
 
-print("Path to root")
-let findFrom = depthFirstSearch(root, 3)!
-print(pathToRoot(findFrom).map((i: BSTNode) => {return i.value}))
+it ("pathToRoot", () => {
+    let findFrom = depthFirstSearch(root, 3)!
+    expect(pathToRoot(findFrom).map((i: BSTNode) => {return i.value})).toStrictEqual([3,4,2,6,7])
+})
 
-print("Common Node")
-print(firstCommonNode(root,1,5)?.value)
-
-export {}
+it ("firstCommonNode", () => {
+    expect(firstCommonNode(root,1,5)?.value).toBe(2)
+})

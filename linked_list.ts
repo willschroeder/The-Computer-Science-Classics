@@ -9,11 +9,11 @@ function print(val: any) {
 
 // O(n)
 function toArr(node: LLNode) {
-    let arr = []
+    let arr: Array<number> = []
     let runner: LLNode|undefined = node
     while (runner) {
         arr.push(runner.value)
-        runner = node.next
+        runner = runner.next
     }
     return arr
 }
@@ -147,8 +147,10 @@ add(start, 3)
 add(start, 4)
 add(start, 5)
 
+print(toArr((start)))
+
 start = remove(start, 2)!
-print(toArr((start!)))
+print(toArr((start)))
 
 print(xNodesFromEnd(start!, 3))
 

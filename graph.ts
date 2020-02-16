@@ -1,3 +1,5 @@
+export {}
+
 type Vertex = {
     value : any 
     index: number 
@@ -11,10 +13,6 @@ type Edge = {
 type Graph = {
     verts: Array<Vertex>
     edges: Array<Array<Edge>>
-}
-
-function print(val: any) {
-    console.log(val)
 }
 
 // O(1)
@@ -34,7 +32,7 @@ function addDirectedEdge(graph: Graph, from: Vertex, to: Vertex) {
 // O(n)
 function breadthFirstSearch(graph: Graph, value: any): boolean {
     let toSearch: Array<Vertex> = [graph.verts[0]]
-    let serached: Array<boolean> = []
+    let serached: Array<boolean> = [] // standing in for a queue, which is more efficent 
 
     while (toSearch.length > 0) {
         let vert = toSearch.shift()!
@@ -56,7 +54,7 @@ function breadthFirstSearch(graph: Graph, value: any): boolean {
 
 // This is an example of backtracking, assuming there are no circular references
 // O(vertex + edges)
-function findPath(graph: Graph, vert: Vertex, value: any, pathSoFar: Array<number>): Array<number>|undefined {
+function findPath(graph: Graph, vert: Vertex, value: number|string, pathSoFar: Array<number>): Array<number>|undefined {
     let pathToNode = pathSoFar.concat(vert.index) // O(vertex) each visited once, assuming no loops, or marked at visited 
 
     if (vert.value == value) {
@@ -148,16 +146,19 @@ addDirectedEdge(graph, v[4], v[5])
 
 addDirectedEdge(graph, v[6], v[8])
 
-print(graph)
+it ("breadthFirstSearch", () => {
+    expect(breadthFirstSearch(graph, 5)).toBeTruthy()
+    expect(breadthFirstSearch(graph, 22)).toBeFalsy()
+})
 
-print(breadthFirstSearch(graph, 5))
-print(breadthFirstSearch(graph, 22))
+it ("findPath", () => {
+    expect(findPath(graph, v[0], 5, [])).toStrictEqual([0, 1, 2, 4, 5])
+    expect(findPath(graph, v[0], 55, [])).not.toBeDefined()
+})
 
-print(findPath(graph, v[0], 5, []))
-print(findPath(graph, v[0], 55, []))
-
-print(topologicalSort(graph).map((i) => { return i.value }))
-
+it ("topologicalSort", () => {
+	expect(topologicalSort(graph).map((i) => { return i.value })).toStrictEqual([0,1,2,3,4,6,5,7,8])
+})
 
 const dag: Graph = {verts: [], edges: []}
 
@@ -174,6 +175,7 @@ addDirectedEdge(dag, v2[5], v2[0])
 addDirectedEdge(dag, v2[3], v2[2])
 // addDirectedEdge(dag, v2[2], v2[3]) // Uncomment to cause edge exception
 
-print(topologicalSort(dag).map((i) => { return i.value }))
+it ("topologicalSort 2", () => {
+	expect(topologicalSort(dag).map((i) => { return i.value })).toStrictEqual(['a','d','c','b','e','f'])
+})
 
-export {}
