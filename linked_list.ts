@@ -1,10 +1,8 @@
+export {}
+
 type LLNode = {
     value: number 
     next?: LLNode
-}
-
-function print(val: any) {
-    console.log(val)
 }
 
 // O(n)
@@ -52,9 +50,10 @@ function removeWithOnePointer(start: LLNode, index: number): LLNode|undefined {
             node.next = node.next.next
             break 
         }
-
-        i -= 1
-        node = node.next
+        else {
+            i -= 1
+            node = node.next
+        }
     }
 
     return start 
@@ -80,7 +79,7 @@ function remove(start: LLNode, index: number): LLNode|undefined {
     let two: LLNode|undefined = start.next 
 
     let i = index 
-    while (i > 0) {
+    while (i > 1) {
         one = one?.next 
         two = two?.next
 
@@ -141,19 +140,30 @@ function reverse(node: LLNode): LLNode|undefined {
 }
 
 
-let start: LLNode = {value: 1}
-add(start, 2)
-add(start, 3)
-add(start, 4)
-add(start, 5)
 
-print(toArr((start)))
 
-start = remove(start, 2)!
-print(toArr((start)))
+function buildLinkedList(): LLNode {
+    let start: LLNode = {value: 0}
+    add(start, 1)
+    add(start, 2)
+    add(start, 3)
+    add(start, 4)
+    return start 
+}
+it ("toArr", () => {
+	expect(toArr(buildLinkedList())).toStrictEqual([0,1,2,3,4])
+})
 
-print(xNodesFromEnd(start!, 3))
+it ("remove", () => {
+    let start = remove(buildLinkedList(), 2)
+    expect(toArr(start!)).toStrictEqual([0,1,3,4])
+    expect(toArr(start!)).toStrictEqual(toArr(removeWithOnePointer(buildLinkedList(),2)!))
+})
 
-print(toArr(reverse(start)!))
+it ("xNodesFromEnd", () => {
+	expect(xNodesFromEnd(buildLinkedList(), 3)).toBe(2)
+})
 
-export {}
+it ("reverse", () => {
+	expect(toArr(reverse(buildLinkedList())!)).toStrictEqual([4,3,2,1,0])
+})

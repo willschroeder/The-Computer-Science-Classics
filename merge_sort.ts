@@ -1,3 +1,5 @@
+export {}
+
 // O (n)
 function merge(left: Array<number>, right: Array<number>): Array<number> {
     let li = 0
@@ -43,9 +45,10 @@ function mergeSort(a: Array<number>): Array<number> {
     return merge(left, right) // n 
 }
 
+it ("merge", () => {
+	expect(merge([1,3,5,7], [2,4,6,8,9,10])).toStrictEqual([1,2,3,4,5,6,7,8,9,10])
+})
 
-
-console.log(merge([1,3,5,7], [2,4,6,8,9,10]))
-console.log(mergeSort([8, 2, 10, 9, 11, 7, 4, 3, 23, 5, 86, 23, 9, 1, 86]))
-
-export {}
+it ("mergeSort", () => {
+	expect(mergeSort([8, 2, 10, 9, 11, 7, 4, 3, 23, 5, 86, 23, 9, 1, 86])).toStrictEqual([1,2,3,4,5,7,8,9,9,10,11,23,23,86,86])
+})
