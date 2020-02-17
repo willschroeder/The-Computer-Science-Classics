@@ -51,17 +51,21 @@ function peek(stack: Stack): number|undefined {
     return stack.head?.value
 }
 
-let stack: Stack = {}
-push(stack, 1)
-push(stack, 7)
-push(stack, 3)
-push(stack, 2)
+it ("stack", () => {
+    let stack: Stack = {}
+    push(stack, 1)
+    push(stack, 7)
+    push(stack, 2)
 
-print(`Highest: ${highest(stack)} Value: ${peek(stack)}`)
-print(pop(stack))
-print(`Highest: ${highest(stack)} Value: ${peek(stack)}`)
-print(pop(stack))
-print(`Highest: ${highest(stack)} Value: ${peek(stack)}`)
-print(pop(stack))
-print(`Highest: ${highest(stack)} Value: ${peek(stack)}`)
-print(pop(stack))
+    expect(highest(stack)).toBe(7)
+    expect(peek(stack)).toBe(2)
+    expect(pop(stack)).toBe(2)
+
+    expect(highest(stack)).toBe(7)
+    expect(peek(stack)).toBe(7)
+    expect(pop(stack)).toBe(7)
+
+    expect(highest(stack)).toBe(1)
+    expect(peek(stack)).toBe(1)
+    expect(pop(stack)).toBe(1)
+})

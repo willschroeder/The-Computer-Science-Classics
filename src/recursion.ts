@@ -1,3 +1,5 @@
+export {}
+
 /*
  O(3 ^ n)
  3 Branches run for each number of stairs, every time it needs to be calculated
@@ -22,9 +24,11 @@ function stairJumper(jumpsTaken: Array<number>, stairsLeft: number, permutations
     }
 }
 
-let perms: Array<Array<number>> = []
-stairJumper([], 10, perms)
-console.log(perms.length)
+it ("stairJumper", () => {
+    let perms: Array<Array<number>> = []
+    stairJumper([], 10, perms)
+	expect(perms.length).toBe(274)
+})
 
 /*
 O(n)
@@ -55,6 +59,8 @@ function stairJumperMemo(jumpsTaken: number, stairsLeft: number, memo: {[stairsL
     return count 
 }
 
-console.log(stairJumperMemo(0, 10, {}))
+it ("stairJumper", () => {
+    expect(stairJumperMemo(0, 10, {})).toBe(274)
+})
 
-export {}
+

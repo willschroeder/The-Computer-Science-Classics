@@ -1,3 +1,5 @@
+export {}
+
 type TrieNode = {
     value?: string 
     parent?: TrieNode
@@ -70,16 +72,16 @@ function remove(root: TrieNode, word: String) {
 
 let root: TrieNode = {isWord: false, children: {}}
 
-print(contains(root, "test"))
+it ("trie", () => {
+    expect(contains(root, "test")).toBeFalsy()
+    insert(root, "apple")
+    insert(root, "a")   
 
-insert(root, "apple")
-insert(root, "a")
+    expect(contains(root, "apple")).toBeTruthy()
+    expect(contains(root, "app")).toBeFalsy()
+    expect(contains(root, "a")).toBeTruthy()
 
-print(contains(root, "apple"))
-print(contains(root, "app"))
-print(contains(root, "a"))
+    remove(root, "apple")
+    expect(contains(root, "apple")).toBeFalsy()
 
-remove(root, "apple")
-print(contains(root, "apple"))
-
-export {}
+})

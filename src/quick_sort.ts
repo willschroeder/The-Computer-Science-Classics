@@ -1,3 +1,5 @@
+export {}
+
 // O(n * log n) 
 // n * (log n + log n)
 // length of array * amount of times the array can be devided in half
@@ -35,8 +37,8 @@ function partition(a: Array<number>, left: number, right: number) {
     return left 
 }
 
-let numberList = [8, 2, 10, 9, 11, 7, 4, 3, 23, 5, 86, 23, 9, 1, 86]
-quicksort(numberList, 0, numberList.length-1)
-console.log(numberList)
-
-export {}
+it ("quicksort", () => {
+    let numberList = [8, 2, 10, 9, 11, 7, 4, 3, 23, 5, 86, 23, 9, 1, 86]
+    quicksort(numberList, 0, numberList.length-1)
+	expect(numberList).toStrictEqual([1,2,3,4,5,7,8,9,9,10,11,23,23,86,86])
+})

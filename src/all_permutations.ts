@@ -9,9 +9,9 @@ function swap(a: Array<number>, i: number, j: number) {
 
 // O(n!)
 // 5 * 4 * 3 * 2 * 1 is the amount of permutations to make at each step, because thats how many letters are left to swap 
-function allPermutations(left: Array<number>, right: Array<number>) {
+function allPermutations(left: Array<number>, right: Array<number>, found: Array<Array<number>>) {
     if (right.length == 0) {
-        console.log(left)
+        found.push(left)
     }
     else {
         for(let i = 0; i < right.length; i++) {
@@ -19,12 +19,14 @@ function allPermutations(left: Array<number>, right: Array<number>) {
             let char = right[0]
             let newLeft = left.concat([char])
             let newRight = right.slice(1)
-            allPermutations(newLeft, newRight)
+            allPermutations(newLeft, newRight, found)
             swap(right, 0, i)
         }
     }
 }
 
 it("allPermutations", () => {
-    allPermutations([], [1,2,3,4])
+    let found: Array<Array<number>> = []
+    allPermutations([], [1,2,3,4], found)
+    expect(found.length).toBe(24)
 })

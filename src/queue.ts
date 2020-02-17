@@ -1,3 +1,5 @@
+export {}
+
 type QueueNode = {
     value: number
     next?: QueueNode
@@ -10,13 +12,10 @@ removeFrom          addTo
 1 -> 2 -> 3 -> 4 -> 5
 
 */
+
 type Queue = {
     addTo?: QueueNode
     removeFrom?: QueueNode
-}
-
-function print(val: any) {
-    console.log(val)
 }
 
 // O(1)
@@ -62,15 +61,19 @@ function toArr(queue: Queue) {
     return arr 
 }
 
-let queue: Queue = {}
-push(queue, 1)
-push(queue, 2)
-push(queue, 3)
-print(toArr(queue))
-print(pop(queue))
-print(pop(queue))
-print(pop(queue))
-push(queue, 1)
-print(pop(queue))
+it ("queue", () => {
+    let queue: Queue = {}
+    push(queue, 1)
+    push(queue, 2)
+    push(queue, 3)
 
-export {}
+    expect(toArr(queue)).toStrictEqual([1,2,3])
+    expect(pop(queue)).toBe(1)
+    expect(pop(queue)).toBe(2)
+    expect(pop(queue)).toBe(3)
+
+    push(queue, 1)
+    expect(toArr(queue)).toStrictEqual([1])
+})
+
+

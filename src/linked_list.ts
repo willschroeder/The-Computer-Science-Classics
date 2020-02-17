@@ -139,9 +139,6 @@ function reverse(node: LLNode): LLNode|undefined {
     return newHead
 }
 
-
-
-
 function buildLinkedList(): LLNode {
     let start: LLNode = {value: 0}
     add(start, 1)
