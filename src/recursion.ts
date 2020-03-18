@@ -59,8 +59,66 @@ function stairJumperMemo(jumpsTaken: number, stairsLeft: number, memo: {[stairsL
     return count 
 }
 
-it ("stairJumper", () => {
+it ("stairJumperMemo", () => {
     expect(stairJumperMemo(0, 10, {})).toBe(274)
 })
 
 
+function waysToMakeChange(left: number): number {
+    if (left < 0) {
+        return 0 
+    }
+
+    if (left == 0) {
+        return 1 
+    }
+
+    const coins = [1,5,10,25]
+    let ways = coins.map((coin) => {
+        return waysToMakeChange(left - coin)
+    })
+
+    return ways.reduce((accumulator, currentValue) => { return accumulator + currentValue }) 
+}
+
+it ("waysToMakeChange", () => {
+    expect(waysToMakeChange(1)).toBe(1)
+    expect(waysToMakeChange(5)).toBe(2)
+    expect(waysToMakeChange(25)).toBe(916)
+})
+
+type KSItem = {
+    weight: number
+    value: number 
+}
+
+function valueForKSItems(items: Array<KSItem>): number {
+    return items.reduce((accumulator, current) => { return accumulator + current.value}, 0)
+}
+
+function zeroToOneKnapsack(items: Array<KSItem>, maxWeight: number, soFar: Array<KSItem> = [], weight: number = 0): Array<KSItem> {
+    if (weight > maxWeight) {
+        return []
+    }
+
+    if (items.length == 0) {
+        return soFar
+    }
+
+    const item = items[0]
+    const newItems = items.slice(1)
+    
+    const withItem = zeroToOneKnapsack(newItems, maxWeight, soFar.concat(item), weight + item.weight)
+    const withoutItem = zeroToOneKnapsack(newItems, maxWeight, soFar, weight)
+
+    return (valueForKSItems(withItem) > valueForKSItems(withoutItem)) ? withItem : withoutItem
+}
+
+it ("zeroToOneKnapsack", () => {
+    const items: Array<KSItem> = [
+        {weight: 5, value: 1},
+        {weight: 2, value: 2},
+        {weight: 4, value: 5},
+    ]
+    expect(valueForKSItems(zeroToOneKnapsack(items, 9))).toEqual(7)
+})
